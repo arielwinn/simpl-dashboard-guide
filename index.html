@@ -98,12 +98,9 @@ function ExBox({ children }) {
 
 function Tile({ icon, iconBg, title, summary, open: startOpen, children }) {
   const [open, setOpen] = useState(startOpen || false);
-  const ref = useRef(null);
-  const [h, setH] = useState(0);
-  useEffect(() => { if (ref.current) setH(ref.current.scrollHeight); }, [open, children]);
 
   return (
-    <div style={{ background: C.surface, border: "1px solid " + (open ? C.accent : C.border), borderRadius: 14, overflow: "hidden", transition: "all .2s", boxShadow: open ? "0 4px 20px rgba(0,0,0,.05)" : "none" }}>
+    <div style={{ background: C.surface, border: "1px solid " + (open ? C.accent : C.border), borderRadius: 14, overflow: "hidden", transition: "border-color .2s, box-shadow .2s", boxShadow: open ? "0 4px 20px rgba(0,0,0,.05)" : "none" }}>
       <div style={{ padding: "24px 24px 20px", cursor: "pointer" }} onClick={() => setOpen(!open)}>
         <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
           <div style={{ width: 50, height: 50, borderRadius: 13, background: iconBg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, flexShrink: 0 }}>{icon}</div>
@@ -114,11 +111,9 @@ function Tile({ icon, iconBg, title, summary, open: startOpen, children }) {
           <div style={{ fontFamily: sans, fontSize: 18, color: C.amber, flexShrink: 0, marginTop: 2, transition: "transform .25s", transform: open ? "rotate(90deg)" : "rotate(0)" }}>{"\u25B8"}</div>
         </div>
       </div>
-      <div style={{ maxHeight: open ? h + 20 : 0, overflow: "hidden", transition: "max-height .5s ease" }}>
-        <div ref={ref} style={{ padding: "0 24px 24px 90px", borderTop: "1px solid " + C.border }}>
-          <div style={{ paddingTop: 20 }}>{children}</div>
-        </div>
-      </div>
+      {open && <div style={{ padding: "0 24px 24px 90px", borderTop: "1px solid " + C.border }}>
+        <div style={{ paddingTop: 20 }}>{children}</div>
+      </div>}
     </div>
   );
 }
