@@ -27,7 +27,6 @@ const C = {
 };
 const serif = "'Source Serif 4', Georgia, serif";
 const sans = "'Source Sans 3', 'Segoe UI', sans-serif";
-const ps = { fontFamily: sans, fontSize: 15.5, lineHeight: 1.75, color: C.text2, margin: "0 0 12px" };
 
 const SCALE = [
   { level: "1", title: "Supervisor Performed", color: "#E74C3C", short: "You observed", detail: "The supervisor performed the activity. You observed but were not yet ready to actively participate in leading the care." },
@@ -45,7 +44,7 @@ const CCC_SCALE = [
   { level: "5", title: "Practice Ready", desc: "No supervisor required. Knows limits and seeks input when needed." },
 ];
 
-/* ===== COMPONENTS ===== */
+/* ===== SMALL EXPANDABLE (for inside tiles) ===== */
 
 function Exp({ title, children, open: defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -53,15 +52,15 @@ function Exp({ title, children, open: defaultOpen = false }) {
   const [h, setH] = useState(0);
   useEffect(() => { if (ref.current) setH(ref.current.scrollHeight); }, [open, children]);
   return (
-    <div style={{ marginBottom: 6 }}>
-      <button onClick={() => setOpen(!open)} style={{ display: "flex", alignItems: "flex-start", gap: 10, width: "100%", border: "1px solid " + (open ? C.border : "transparent"), background: open ? C.surface : "transparent", borderRadius: 10, padding: "12px 14px", cursor: "pointer", textAlign: "left", transition: "all .2s" }}
+    <div style={{ marginBottom: 5 }}>
+      <button onClick={e => { e.stopPropagation(); setOpen(!open); }} style={{ display: "flex", alignItems: "flex-start", gap: 10, width: "100%", border: "1px solid " + (open ? C.border : "transparent"), background: open ? C.surface : "transparent", borderRadius: 8, padding: "11px 13px", cursor: "pointer", textAlign: "left", transition: "all .2s" }}
         onMouseEnter={e => { if (!open) { e.currentTarget.style.background = C.tint; e.currentTarget.style.borderColor = C.border; } }}
         onMouseLeave={e => { if (!open) { e.currentTarget.style.background = open ? C.surface : "transparent"; e.currentTarget.style.borderColor = open ? C.border : "transparent"; } }}>
-        <span style={{ color: C.amber, fontSize: 12, fontWeight: 700, flexShrink: 0, marginTop: 4, transition: "transform .2s", transform: open ? "rotate(90deg)" : "rotate(0)", display: "inline-block" }}>{"\u25B8"}</span>
-        <span style={{ fontFamily: serif, fontSize: 15.5, fontWeight: 700, color: C.text, lineHeight: 1.45 }}>{title}</span>
+        <span style={{ color: C.amber, fontSize: 11, fontWeight: 700, flexShrink: 0, marginTop: 4, transition: "transform .2s", transform: open ? "rotate(90deg)" : "rotate(0)", display: "inline-block" }}>{"\u25B8"}</span>
+        <span style={{ fontFamily: serif, fontSize: 15, fontWeight: 700, color: C.text, lineHeight: 1.45 }}>{title}</span>
       </button>
       <div style={{ maxHeight: open ? h + 20 : 0, overflow: "hidden", transition: "max-height .4s ease" }}>
-        <div ref={ref} style={{ padding: "4px 14px 12px 38px", color: C.text2, fontFamily: sans, fontSize: 15, lineHeight: 1.75 }}>{children}</div>
+        <div ref={ref} style={{ padding: "4px 13px 10px 36px", color: C.text2, fontFamily: sans, fontSize: 14.5, lineHeight: 1.75 }}>{children}</div>
       </div>
     </div>
   );
@@ -71,7 +70,7 @@ function Tip({ children, def }) {
   const [show, setShow] = useState(false);
   return (
     <span style={{ position: "relative", display: "inline" }}>
-      <span onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)} onClick={() => setShow(!show)}
+      <span onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)} onClick={e => { e.stopPropagation(); setShow(!show); }}
         style={{ color: C.amber, fontWeight: 600, borderBottom: "1.5px dotted " + C.accent, cursor: "help" }}>{children}</span>
       {show && <span style={{ position: "absolute", bottom: "calc(100% + 10px)", left: "50%", transform: "translateX(-50%)", background: C.text, color: "#F0F0EE", padding: "12px 16px", borderRadius: 10, fontSize: 14, lineHeight: 1.55, width: 310, zIndex: 100, boxShadow: "0 8px 30px rgba(0,0,0,.15)", fontFamily: sans, fontWeight: 400 }}>
         {def}<span style={{ position: "absolute", top: "100%", left: "50%", transform: "translateX(-50%)", borderLeft: "7px solid transparent", borderRight: "7px solid transparent", borderTop: "7px solid " + C.text }} />
@@ -81,59 +80,50 @@ function Tip({ children, def }) {
 }
 
 function LinkBtn({ href, children }) {
-  return <a href={href} target="_blank" rel="noopener noreferrer" style={{
-    display: "inline-flex", alignItems: "center", gap: 7, background: C.amberSub, border: "1px solid " + C.accent,
-    borderRadius: 8, padding: "9px 16px", fontFamily: sans, fontSize: 14, fontWeight: 600, color: C.amber,
-    textDecoration: "none", margin: "4px 8px 4px 0", cursor: "pointer",
-  }}>{children} <span style={{ fontSize: 11 }}>{"\u2197"}</span></a>;
+  return <a href={href} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} style={{
+    display: "inline-flex", alignItems: "center", gap: 6, background: C.amberSub, border: "1px solid " + C.accent,
+    borderRadius: 8, padding: "8px 14px", fontFamily: sans, fontSize: 13.5, fontWeight: 600, color: C.amber,
+    textDecoration: "none", margin: "4px 6px 4px 0", cursor: "pointer",
+  }}>{children} <span style={{ fontSize: 10 }}>{"\u2197"}</span></a>;
 }
 
 function ExBox({ children }) {
-  return <div style={{ background: C.tint, borderRadius: 10, padding: "14px 16px", border: "1px solid " + C.border, fontSize: 14.5, lineHeight: 1.7, color: C.text2, margin: "12px 0" }}>
-    <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: ".12em", color: C.amber, fontWeight: 700, marginBottom: 6, fontFamily: sans }}>Example</div>
+  return <div style={{ background: C.tint, borderRadius: 8, padding: "13px 14px", border: "1px solid " + C.border, fontSize: 14, lineHeight: 1.65, color: C.text2, margin: "10px 0" }}>
+    <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: ".12em", color: C.amber, fontWeight: 700, marginBottom: 5, fontFamily: sans }}>Example</div>
     {children}
   </div>;
 }
 
-/* ===== EXPANDABLE PURPOSE TILE ===== */
+/* ===== BIG EXPANDABLE TILE ===== */
 
-function PurposeTile({ icon, iconBg, label, labelColor, title, summary, children }) {
-  const [open, setOpen] = useState(false);
+function Tile({ icon, iconBg, title, summary, open: startOpen, children }) {
+  const [open, setOpen] = useState(startOpen || false);
   const ref = useRef(null);
   const [h, setH] = useState(0);
   useEffect(() => { if (ref.current) setH(ref.current.scrollHeight); }, [open, children]);
 
   return (
-    <div style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 14, overflow: "hidden", transition: "box-shadow .2s", boxShadow: open ? "0 4px 20px rgba(0,0,0,.06)" : "none" }}>
-      {/* ALWAYS VISIBLE SUMMARY */}
-      <div style={{ padding: "22px 22px 18px", cursor: "pointer" }} onClick={() => setOpen(!open)}>
+    <div style={{ background: C.surface, border: "1px solid " + (open ? C.accent : C.border), borderRadius: 14, overflow: "hidden", transition: "all .2s", boxShadow: open ? "0 4px 20px rgba(0,0,0,.05)" : "none" }}>
+      <div style={{ padding: "24px 24px 20px", cursor: "pointer" }} onClick={() => setOpen(!open)}>
         <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-          <div style={{ width: 48, height: 48, borderRadius: 12, background: iconBg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>{icon}</div>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: sans, fontSize: 11, fontWeight: 700, color: labelColor, textTransform: "uppercase", letterSpacing: ".08em", marginBottom: 4 }}>{label}</div>
-            <div style={{ fontFamily: serif, fontSize: 18, fontWeight: 700, color: C.text, marginBottom: 6, lineHeight: 1.3 }}>{title}</div>
-            <div style={{ fontFamily: sans, fontSize: 14.5, color: C.text2, lineHeight: 1.65 }}>{summary}</div>
+          <div style={{ width: 50, height: 50, borderRadius: 13, background: iconBg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, flexShrink: 0 }}>{icon}</div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontFamily: serif, fontSize: 19, fontWeight: 700, color: C.text, marginBottom: 6, lineHeight: 1.3 }}>{title}</div>
+            <div style={{ fontFamily: sans, fontSize: 15, color: C.text2, lineHeight: 1.65 }}>{summary}</div>
           </div>
-          <div style={{ fontFamily: sans, fontSize: 12, fontWeight: 700, color: C.amber, flexShrink: 0, marginTop: 4, transition: "transform .2s", transform: open ? "rotate(90deg)" : "rotate(0)" }}>{"\u25B8"}</div>
+          <div style={{ fontFamily: sans, fontSize: 18, color: C.amber, flexShrink: 0, marginTop: 2, transition: "transform .25s", transform: open ? "rotate(90deg)" : "rotate(0)" }}>{"\u25B8"}</div>
         </div>
       </div>
-
-      {/* EXPANDABLE DETAIL */}
-      <div style={{ maxHeight: open ? h + 20 : 0, overflow: "hidden", transition: "max-height .4s ease" }}>
-        <div ref={ref} style={{ padding: "0 22px 22px 86px", fontFamily: sans, fontSize: 15, lineHeight: 1.75, color: C.text2, borderTop: "1px solid " + C.border }}>
-          <div style={{ paddingTop: 18 }}>{children}</div>
+      <div style={{ maxHeight: open ? h + 20 : 0, overflow: "hidden", transition: "max-height .5s ease" }}>
+        <div ref={ref} style={{ padding: "0 24px 24px 90px", borderTop: "1px solid " + C.border }}>
+          <div style={{ paddingTop: 20 }}>{children}</div>
         </div>
       </div>
-
-      {/* EXPAND PROMPT */}
-      {!open && <div onClick={() => setOpen(true)} style={{ padding: "0 22px 16px 86px", cursor: "pointer" }}>
-        <span style={{ fontFamily: sans, fontSize: 13, fontWeight: 600, color: C.amber }}>{"\u25B8"} Tap for more detail</span>
-      </div>}
     </div>
   );
 }
 
-/* ===== MAIN APP ===== */
+/* ===== APP ===== */
 
 function App() {
   const [selLevel, setSelLevel] = useState(null);
@@ -141,22 +131,22 @@ function App() {
   return (
     <div style={{ background: C.bg, minHeight: "100vh" }}>
 
-      {/* ITERATION BANNER */}
+      {/* BANNER */}
       <div style={{ background: C.amberSub, borderBottom: "1px solid " + C.accent, padding: "10px 32px", textAlign: "center" }}>
-        <p style={{ fontFamily: sans, fontSize: 13.5, color: C.amber, fontWeight: 600, lineHeight: 1.5, maxWidth: 700, margin: "0 auto" }}>{"\u2728"} This resource is a living document. We continue to update and improve it based on feedback from residents, faculty, and programs.</p>
+        <p style={{ fontFamily: sans, fontSize: 13.5, color: C.amber, fontWeight: 600, lineHeight: 1.5, maxWidth: 700, margin: "0 auto" }}>{"\u2728"} This resource is a living document. We continue to update and improve it based on feedback.</p>
       </div>
 
       {/* HEADER */}
       <header style={{ background: C.surface, borderBottom: "1px solid " + C.border }}>
-        <div style={{ maxWidth: 960, margin: "0 auto", padding: "40px 32px 20px", textAlign: "center" }}>
+        <div style={{ maxWidth: 960, margin: "0 auto", padding: "40px 32px 28px", textAlign: "center" }}>
           <div style={{ display: "inline-block", fontSize: 11.5, letterSpacing: ".14em", textTransform: "uppercase", color: C.amber, fontFamily: sans, fontWeight: 700, background: C.amberSub, padding: "5px 16px", borderRadius: 20, marginBottom: 16 }}>ABP/SIMPL Assessment Platform</div>
-          <h1 style={{ fontFamily: serif, fontSize: 34, fontWeight: 800, color: C.text, margin: "0 0 12px", lineHeight: 1.15 }}>You Have Access to Your Assessment Dashboard</h1>
-          <p style={{ fontFamily: sans, fontSize: 17, color: C.text2, maxWidth: 580, margin: "0 auto 28px", lineHeight: 1.6 }}>Here's how to get started and what to know when using it.</p>
+          <h1 style={{ fontFamily: serif, fontSize: 34, fontWeight: 800, color: C.text, margin: "0 0 12px", lineHeight: 1.15 }}>Your Assessment Dashboard</h1>
+          <p style={{ fontFamily: sans, fontSize: 17, color: C.text2, maxWidth: 580, margin: "0 auto 28px", lineHeight: 1.6 }}>A quick guide for pediatric residents</p>
 
           {/* QUICK LINKS */}
-          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", margin: "0 auto 16px" }}>
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", margin: "0 auto 0" }}>
             <a href="#" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: C.amberSub, border: "1.5px solid " + C.accent, borderRadius: 10, padding: "12px 20px", textDecoration: "none", fontFamily: sans, fontSize: 15, fontWeight: 600, color: C.amber }}>
-              {"\u{1F3AC}"} Watch the Video Walkthrough <span style={{ fontSize: 11, opacity: .6 }}>(coming soon)</span>
+              {"\u{1F3AC}"} Video Walkthrough <span style={{ fontSize: 11, opacity: .6 }}>(coming soon)</span>
             </a>
             <a href="#" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: C.surface, border: "1.5px solid " + C.border, borderRadius: 10, padding: "12px 20px", textDecoration: "none", fontFamily: sans, fontSize: 15, fontWeight: 600, color: C.text }}>
               {"\u{1F4CA}"} Open Your Dashboard <span style={{ fontSize: 11, opacity: .6 }}>(link coming)</span>
@@ -168,231 +158,173 @@ function App() {
         </div>
       </header>
 
-      {/* ===== PLATFORM GOAL + DASHBOARD PURPOSES ===== */}
-      <section style={{ maxWidth: 960, margin: "0 auto", padding: "36px 32px 8px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, alignItems: "start" }}>
+      {/* ===== CONTEXT + THREE TILES ===== */}
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: "36px 32px 0" }}>
 
-          {/* LEFT: Platform Goal */}
-          <div style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 14, padding: "26px 24px" }}>
-            <div style={{ fontFamily: sans, fontSize: 11.5, fontWeight: 700, color: C.amber, textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 10 }}>The Goal of This Platform</div>
-            <p style={{ fontFamily: sans, fontSize: 15.5, lineHeight: 1.75, color: C.text, margin: "0 0 12px" }}>This platform replaces vague end-of-rotation evaluations with frequent, specific, encounter-based feedback tied to the 12 <Tip def="Entrustable Professional Activities are the essential tasks that define what a pediatrician does. Each represents a unit of clinical work that can be observed, assessed, and \u2014 when a trainee is ready \u2014 entrusted to them without supervision.">EPAs</Tip> that define what a general pediatrician does.</p>
-            <p style={{ fontFamily: sans, fontSize: 15.5, lineHeight: 1.75, color: C.text, margin: "0 0 12px" }}>The goal: by graduation, you can perform these activities safely and effectively without assigned supervision. That standard is called <em>practice ready</em> {"\u2014"} and it is the required outcome of training for graduation and to be eligible to become board certified.</p>
-            <p style={{ fontFamily: sans, fontSize: 14, lineHeight: 1.7, color: C.text2, margin: "0 0 14px" }}>Practice ready does not mean expert or working alone. You are not expected to be there on day one {"\u2014"} that is the point of training. <strong>Current EPA assignments are developmental and are not reported to the ABP.</strong></p>
-            <LinkBtn href="https://www.abp.org/sites/public/files/pdf/epas-general-pediatrics-summary.pdf">View the 12 EPAs</LinkBtn>
-            <LinkBtn href="https://www.abp.org/sites/public/files/pdf/cbme-supervision-scale-for-cccs.pdf">CCC Scale</LinkBtn>
-          </div>
+        {/* WHY — expandable so tiles are immediately visible */}
+        <Exp title="Why does this platform exist?" open={false}>
+          <p style={{ margin: "0 0 10px" }}>This platform replaces vague end-of-rotation evaluations with frequent, encounter-based feedback tied to the 12 <Tip def="Entrustable Professional Activities are the essential tasks that define what a pediatrician does \u2014 from well-child visits to managing acutely ill children. Together they define the scope of general pediatrics practice.">Entrustable Professional Activities (EPAs)</Tip> that define what a general pediatrician does. The goal is <em>practice readiness</em> by graduation: you can perform these activities safely and effectively without assigned supervision. This is the required outcome of training for graduation and to be eligible to become board certified.</p>
+          <p style={{ margin: "0 0 10px" }}>Current EPA assignments are developmental and are not reported to the ABP.</p>
+          <LinkBtn href="https://www.abp.org/sites/public/files/pdf/epas-general-pediatrics-summary.pdf">View the 12 EPAs</LinkBtn>
+          <LinkBtn href="https://www.abp.org/sites/public/files/pdf/cbme-supervision-scale-for-cccs.pdf">CCC Supervision Scale</LinkBtn>
+        </Exp>
 
-          {/* RIGHT: Dashboard Purposes stacked */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <div style={{ fontFamily: sans, fontSize: 11.5, fontWeight: 700, color: C.amber, textTransform: "uppercase", letterSpacing: ".1em", paddingLeft: 2 }}>Your Dashboard {"\u2014"} Tap each to learn more</div>
-            {[
-              { icon: "\u{1F4CA}", bg: C.amberSub, color: C.amber, title: "Track your assessment volume", desc: "How many assessments, distribution across EPAs, and where you may have gaps." },
-              { icon: "\u{1F331}", bg: C.greenSub, color: C.green, title: "Promote your growth", desc: "Actionable feedback from supervision trends and narrative comments." },
-              { icon: "\u{1F9ED}", bg: "#EDE8F5", color: "#6B5B95", title: "Assess where you are", desc: "Understand your trajectory toward practice readiness with your program." },
-            ].map((p, i) => (
-              <div key={i} onClick={() => {
-                const el = document.getElementById("purpose-" + i);
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }} style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 12, padding: "16px 18px", cursor: "pointer", transition: "border-color .15s, box-shadow .15s", display: "grid", gridTemplateColumns: "44px 1fr auto", gap: 14, alignItems: "center" }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = C.accent; e.currentTarget.style.boxShadow = "0 3px 12px rgba(154,123,44,.06)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "none"; }}>
-                <div style={{ width: 44, height: 44, borderRadius: 11, background: p.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>{p.icon}</div>
-                <div>
-                  <div style={{ fontFamily: serif, fontSize: 15.5, fontWeight: 700, color: C.text, marginBottom: 2, lineHeight: 1.3 }}>{p.title}</div>
-                  <div style={{ fontFamily: sans, fontSize: 13, color: C.text2, lineHeight: 1.5 }}>{p.desc}</div>
-                </div>
-                <span style={{ fontFamily: sans, fontSize: 11, fontWeight: 700, color: C.amber }}>{"\u25B8"}</span>
+        <div style={{ fontFamily: sans, fontSize: 12, fontWeight: 700, color: C.amber, textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 14 }}>Your dashboard serves three purposes {"\u2014"} tap each to learn more</div>
+
+        {/* THREE TILES */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+
+          {/* TILE 1: VOLUME */}
+          <Tile icon={"\u{1F4CA}"} iconBg={C.amberSub}
+            title="Track your assessment volume"
+            summary="See how many assessments you have, how they're distributed across EPAs, and where you may have gaps \u2014 so you can ensure you're getting sufficient data for an accurate picture.">
+            <Exp title="More data means a more accurate picture." open={true}>
+              <p style={{ margin: 0 }}>We do not yet know how many assessments per EPA are needed to ensure your Clinical Competency Committee is making accurate and equitable decisions about your supervision needs. What we do know is that the more assessments you have, the more accurate the picture becomes. Each individual assessment is meant to be low-stakes, just one small piece of a much bigger puzzle. The system works best when there are many pieces.</p>
+            </Exp>
+            <Exp title="Initiating works, even when it feels like it doesn't.">
+              <p style={{ margin: 0 }}>If your program uses a model where you push assessments to faculty, the data show that the more you initiate, the more assessments you receive. More pushes also mean more that go uncompleted. Try not to let that discourage you. The completed ones still add up.</p>
+            </Exp>
+            <Exp title="Faculty are learning too.">
+              <p style={{ margin: 0 }}>If faculty aren't completing assessments or aren't initiating them as expected, know that this is a learning curve for everyone. Faculty are figuring out new tools and workflows at the same time you are. We're all learning this system together, and it gets easier with time.</p>
+            </Exp>
+          </Tile>
+
+          {/* TILE 2: GROWTH */}
+          <Tile icon={"\u{1F331}"} iconBg={C.greenSub}
+            title="Promote your growth toward practice readiness"
+            summary="Your supervision trends and narrative comments give you actionable feedback. Use them to identify strengths, notice growth areas, and build learning goals with your faculty coach.">
+            <Exp title="Look for patterns, not snapshots." open={true}>
+              <p style={{ margin: "0 0 10px" }}>The graphs show you patterns over time. Look for growth, and also notice periods where growth may have plateaued or dropped.</p>
+              <p style={{ margin: "0 0 10px" }}><strong>Normal growth is not always linear</strong> {"\u2014"} we have good days and days that aren't our best. Dips and plateaus should be expected and provide an opportunity for reflection.</p>
+              <p style={{ margin: 0 }}>If you see a plateau or dip, ask yourself: Do the narrative comments help me understand what I could work on? Can I use that to build an action plan?</p>
+            </Exp>
+            <Exp title="Your narrative comments are your richest source of feedback." open={true}>
+              <p style={{ margin: "0 0 10px" }}>Developmental feedback isn't always obvious {"\u2014"} it frequently lacks a label like "area for improvement." It's often normal growth.</p>
+              <ExBox>
+                <span>A faculty member might write: <em style={{ color: C.text }}>"Managed the acute visit well and chose the right antibiotic, but could strengthen discharge counseling by checking back with the family."</em></span>
+                <div style={{ marginTop: 8, fontWeight: 600, color: C.text }}>That's not a problem {"\u2014"} that's a growth opportunity inside a strong assessment.</div>
+              </ExBox>
+              <p style={{ margin: "0 0 10px" }}>Look <strong>across your comments over time</strong>. Are multiple faculty noting the same area? Is something that used to come up no longer appearing? Are expectations getting harder {"\u2014"} a sign you're being trusted with more?</p>
+              <p style={{ margin: 0 }}>Use these patterns with your faculty coach to set concrete learning goals.</p>
+            </Exp>
+            <Exp title="Don't rely on averages.">
+              <p style={{ margin: 0 }}>Each supervision rating reflects one judgment about one past encounter. Ratings, narrative comments, clinical context, and patterns over time should all be interpreted together. No single number tells the story.</p>
+            </Exp>
+            <Exp title="Not sure what to do with a comment?">
+              <p style={{ margin: 0 }}>That's okay {"\u2014"} bring it to your faculty coach or a trusted mentor. They can help you interpret the feedback in context.</p>
+            </Exp>
+            <Exp title="Worried a rating may reflect bias?">
+              <p style={{ margin: 0 }}>That concern is valid and important. Bring it to a trusted member of your program. One of the goals of this system is to improve equity {"\u2014"} and that only works if concerns are surfaced.</p>
+            </Exp>
+            <Exp title="Faculty are still learning the scales.">
+              <p style={{ margin: 0 }}>Their numerical ratings may not always align with the narrative. With more assessments, individual inconsistencies matter less and the overall pattern becomes clearer.</p>
+            </Exp>
+          </Tile>
+
+          {/* TILE 3: PROGRESS */}
+          <Tile icon={"\u{1F9ED}"} iconBg="#EDE8F5"
+            title="Help you and your program assess where you are"
+            summary="The same data helps you and your program accurately understand where you are on your trajectory toward performing the activities of a general pediatrician without supervision at the time of graduation.">
+            <p style={{ fontFamily: sans, fontSize: 14.5, lineHeight: 1.75, color: C.text2, margin: "0 0 14px" }}>Your <Tip def="A group of faculty and educators responsible for monitoring your progress and making decisions about your supervision needs across all EPAs.">Clinical Competency Committee (CCC)</Tip> reviews your aggregate data: supervision ratings, narrative comments, clinical context, and patterns over time. The approach described in this guide {"\u2014"} patterns over snapshots, narratives alongside ratings {"\u2014"} is the same approach your program and CCC should be using.</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, margin: "0 0 14px" }}>
+              <div style={{ background: C.tint, border: "1px solid " + C.border, borderRadius: 10, padding: "14px 12px" }}>
+                <div style={{ fontFamily: serif, fontWeight: 700, fontSize: 14, color: C.text, marginBottom: 3 }}>Frontline Ratings</div>
+                <div style={{ fontFamily: sans, fontSize: 13, color: C.text2, lineHeight: 1.55 }}><strong>Retrospective:</strong> how much supervision you needed for one past encounter.</div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== EXPANDABLE PURPOSE TILES ===== */}
-      <section style={{ maxWidth: 960, margin: "0 auto", padding: "28px 32px 0" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-
-          {/* PURPOSE 1: VOLUME */}
-          <div id="purpose-0">
-            <PurposeTile icon={"\u{1F4CA}"} iconBg={C.amberSub} label="Volume" labelColor={C.amber}
-              title="Track your assessment volume"
-              summary="More assessments = a more accurate picture. Each one is low-stakes \u2014 one small piece of a bigger puzzle. The system works best when there are many pieces.">
-              <Exp title="More data means a more accurate picture." open={true}>
-                <p style={{ margin: 0 }}>We do not yet know how many assessments per EPA are needed to ensure your Clinical Competency Committee is making accurate and equitable decisions about your supervision needs, or how many are needed to give you a reliable sense of where you stand. What we do know is that the more assessments you have, the more accurate the picture becomes. This is by design: each individual assessment is meant to be low-stakes, just one small piece of a much bigger puzzle.</p>
-              </Exp>
-              <Exp title="Initiating works, even when it feels like it doesn't.">
-                <p style={{ margin: 0 }}>If your program uses a model where you push assessments to faculty, the data show that the more you initiate, the more assessments you receive. The trade-off is that more pushes also mean more that go uncompleted. Try not to let that discourage you. The completed ones still add up and move you forward.</p>
-              </Exp>
-              <Exp title="Faculty are learning too.">
-                <p style={{ margin: 0 }}>If faculty aren't completing assessments or aren't initiating them as expected, know that this is a learning curve for everyone. Faculty are figuring out new tools and workflows at the same time you are. We're all learning this system together, and it gets easier with time.</p>
-              </Exp>
-            </PurposeTile>
-          </div>
-
-          {/* PURPOSE 2: GROWTH */}
-          <div id="purpose-1">
-            <PurposeTile icon={"\u{1F331}"} iconBg={C.greenSub} label="Growth" labelColor={C.green}
-              title="Promote your growth toward practice readiness"
-              summary="Your supervision trends and narrative comments give you actionable feedback. Use them to identify strengths, notice growth areas, and build learning goals with your faculty coach.">
-              <Exp title="Look for patterns, not snapshots." open={true}>
-                <p style={{ margin: "0 0 10px" }}>The graphs show you patterns over time. Look for growth, and also notice periods where growth may have plateaued or appears to have dropped.</p>
-                <p style={{ margin: "0 0 10px" }}><strong>Normal growth is not always linear</strong> {"\u2014"} we have good days and days that aren't our best. We go from rotations that we feel comfortable and strong in to rotations where we might need more help and support. This is all normal. Dips and plateaus should be expected and provide an opportunity for reflection.</p>
-                <p style={{ margin: 0 }}>If you see a plateau or dip, ask yourself: What's going on in this area? Do the narrative comments help me understand what I could work on?</p>
-              </Exp>
-              <Exp title="Don't rely on averages.">
-                <p style={{ margin: 0 }}>Neither you nor your CCC should rely on numerical averages alone. Each supervision rating reflects a supervisor's retrospective judgment about one past encounter. Ratings, narrative comments, clinical context, sources, and patterns over time should all be interpreted together. No single number tells the story; the whole picture does.</p>
-              </Exp>
-              <Exp title="Your narrative comments are your richest source of feedback." open={true}>
-                <p style={{ margin: "0 0 10px" }}>Developmental feedback isn't always obvious {"\u2014"} it frequently lacks a label like "area for improvement." And frequently, it's not a deficiency. It's normal growth.</p>
-                <ExBox>
-                  <span>A faculty member might write that you <em style={{ color: C.text }}>"managed the acute visit well and chose the right antibiotic, but could strengthen discharge counseling by checking back with the family about their understanding of the medication plan."</em></span>
-                  <div style={{ marginTop: 8, fontWeight: 600, color: C.text }}>That's not a problem {"\u2014"} that's a growth opportunity inside an otherwise strong assessment.</div>
-                </ExBox>
-                <p style={{ margin: "0 0 10px" }}>The real power comes from looking <strong>across your comments over time</strong>. Are multiple faculty noting the same area? Is something that used to come up no longer appearing? Are the expectations getting progressively harder {"\u2014"} a sign you're being trusted with more?</p>
-                <p style={{ margin: 0 }}>Use these patterns with your faculty coach to set concrete learning goals.</p>
-              </Exp>
-              <Exp title="Not sure what to do with a comment?">
-                <p style={{ margin: 0 }}>If you receive feedback and aren't sure what to make of it, that's okay {"\u2014"} bring it to your faculty coach or a trusted mentor. They can help you interpret the feedback in context.</p>
-              </Exp>
-              <Exp title="Worried a rating may reflect bias?">
-                <p style={{ margin: 0 }}>If you feel a rating or comment may reflect bias rather than your actual performance, that concern is valid and important. Bring it to a trusted member of your program. One of the goals of this system is to improve equity {"\u2014"} and that only works if concerns are surfaced.</p>
-              </Exp>
-              <Exp title="Faculty are still learning the scales.">
-                <p style={{ margin: 0 }}>Faculty are still developing comfort with the supervision rating scales. Their numerical ratings may not always align with the narrative. With more assessments, individual inconsistencies matter less and the overall pattern becomes clearer.</p>
-              </Exp>
-            </PurposeTile>
-          </div>
-
-          {/* PURPOSE 3: PROGRESS */}
-          <div id="purpose-2">
-            <PurposeTile icon={"\u{1F9ED}"} iconBg="#EDE8F5" label="Progress" labelColor="#6B5B95"
-              title="Help you and your program assess where you are"
-              summary="The same data helps you and your program accurately understand where you are on your trajectory toward performing the activities of a general pediatrician without supervision at the time of graduation.">
-              <p style={ps}>Your <Tip def="A group of faculty and educators responsible for monitoring your progress and making decisions about your supervision needs across all EPAs.">Clinical Competency Committee (CCC)</Tip> reviews and synthesizes your aggregate assessment data: supervision ratings, narrative comments, clinical context, and patterns over time.</p>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, margin: "4px 0 16px" }}>
-                <div style={{ background: C.tint, border: "1px solid " + C.border, borderRadius: 12, padding: "16px 14px" }}>
-                  <div style={{ fontFamily: serif, fontWeight: 700, fontSize: 15, color: C.text, marginBottom: 4 }}>Frontline Ratings</div>
-                  <div style={{ fontFamily: sans, fontSize: 13.5, color: C.text2, lineHeight: 1.6 }}><strong>Retrospective:</strong> how much supervision you needed for one past encounter.</div>
-                </div>
-                <div style={{ background: C.amberSub, border: "1px solid " + C.accent, borderRadius: 12, padding: "16px 14px" }}>
-                  <div style={{ fontFamily: serif, fontWeight: 700, fontSize: 15, color: C.text, marginBottom: 4 }}>CCC Decisions</div>
-                  <div style={{ fontFamily: sans, fontSize: 13.5, color: C.text2, lineHeight: 1.6 }}><strong>Prospective:</strong> "Could this trainee provide safe, effective care without supervision?"</div>
-                </div>
+              <div style={{ background: C.amberSub, border: "1px solid " + C.accent, borderRadius: 10, padding: "14px 12px" }}>
+                <div style={{ fontFamily: serif, fontWeight: 700, fontSize: 14, color: C.text, marginBottom: 3 }}>CCC Decisions</div>
+                <div style={{ fontFamily: sans, fontSize: 13, color: C.text2, lineHeight: 1.55 }}><strong>Prospective:</strong> "Could this trainee provide safe, effective care without supervision?"</div>
               </div>
-              <p style={ps}>The approach described throughout this guide {"\u2014"} patterns over snapshots, narratives alongside ratings, growth isn't linear {"\u2014"} is the same approach your program and CCC should be using.</p>
-              <Exp title="The CCC Level of Supervision Scale">
-                <p style={{ margin: "0 0 12px" }}>Your CCC uses its own scale to make summative decisions. Level 5 = practice ready.</p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 0, background: C.surface, border: "1px solid " + C.border, borderRadius: 10, overflow: "hidden", marginBottom: 10 }}>
-                  {CCC_SCALE.map((s, i) => (
-                    <div key={s.level} style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "10px 12px", borderTop: i > 0 ? "1px solid " + C.border : "none" }}>
-                      <div style={{ width: 26, height: 26, borderRadius: 6, background: C.amberSub, color: C.amber, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: serif, fontWeight: 700, fontSize: 12.5, flexShrink: 0 }}>{s.level}</div>
-                      <div><span style={{ fontFamily: serif, fontWeight: 700, fontSize: 13.5, color: C.text }}>{s.title}: </span><span style={{ fontFamily: sans, fontSize: 13, color: C.text2 }}>{s.desc}</span></div>
-                    </div>
-                  ))}
-                </div>
-                <LinkBtn href="https://www.abp.org/sites/public/files/pdf/cbme-supervision-scale-for-cccs.pdf">View the full CCC scale</LinkBtn>
-              </Exp>
-              <Exp title="No single data point carries too much weight.">
-                <p style={{ margin: 0 }}>With many data points from diverse faculty across settings and time, no single assessment should significantly influence a CCC determination.</p>
-              </Exp>
-              <Exp title="Preparing for 2028">
-                <p style={{ margin: "0 0 10px" }}>Beginning in 2028, the ABP will require program directors to attest that graduates are practice ready across all EPAs as a prerequisite for initial certification.</p>
-                <p style={{ margin: 0 }}>Current EPA assignments are developmental and are <strong>not reported to the ABP</strong>. They are intended to provide you with data to support your growth and to give your program more specific information to make decisions about your progress toward becoming practice ready {"\u2014"} which will become consequential in 2028.</p>
-              </Exp>
-            </PurposeTile>
-          </div>
+            </div>
+            <Exp title="The CCC Supervision Scale">
+              <p style={{ margin: "0 0 10px" }}>Your CCC uses its own scale for summative decisions. Level 5 = practice ready.</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 0, background: C.surface, border: "1px solid " + C.border, borderRadius: 10, overflow: "hidden", marginBottom: 8 }}>
+                {CCC_SCALE.map((s, i) => (
+                  <div key={s.level} style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "9px 12px", borderTop: i > 0 ? "1px solid " + C.border : "none" }}>
+                    <div style={{ width: 24, height: 24, borderRadius: 6, background: C.amberSub, color: C.amber, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: serif, fontWeight: 700, fontSize: 12, flexShrink: 0 }}>{s.level}</div>
+                    <div><span style={{ fontFamily: serif, fontWeight: 700, fontSize: 13, color: C.text }}>{s.title}: </span><span style={{ fontFamily: sans, fontSize: 12.5, color: C.text2 }}>{s.desc}</span></div>
+                  </div>
+                ))}
+              </div>
+              <LinkBtn href="https://www.abp.org/sites/public/files/pdf/cbme-supervision-scale-for-cccs.pdf">View the full CCC scale</LinkBtn>
+            </Exp>
+            <Exp title="No single data point carries too much weight.">
+              <p style={{ margin: 0 }}>With many data points from diverse faculty across settings and time, no single assessment should significantly influence a CCC determination.</p>
+            </Exp>
+            <Exp title="Preparing for 2028">
+              <p style={{ margin: "0 0 10px" }}>Beginning in 2028, the ABP will require program directors to attest that graduates are practice ready across all EPAs as a prerequisite for initial certification.</p>
+              <p style={{ margin: 0 }}>Current EPA assignments are developmental and are <strong>not reported to the ABP</strong>. They are intended to provide you with data to support your growth and to give your program more specific information to make decisions about your progress {"\u2014"} which will become consequential in 2028.</p>
+            </Exp>
+          </Tile>
         </div>
-      </section>
+      </div>
 
-      {/* ===== ESSENTIAL INFORMATION ===== */}
-      <section style={{ maxWidth: 960, margin: "0 auto", padding: "32px 32px 0" }}>
-        <PurposeTile icon={"\u{1F4F1}"} iconBg={C.tint} label="The Platform" labelColor={C.text2}
-          title="Essential information about the platform"
-          summary="How this system differs from traditional evaluations, what the assessment forms and supervision scale look like, and what EPAs and practice readiness mean in detail.">
+      {/* ===== ABOUT THE PLATFORM (collapsed by default) ===== */}
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: "20px 32px 0" }}>
+        <Tile icon={"\u{1F4F1}"} iconBg={C.tint}
+          title="About the platform"
+          summary="How this system differs from traditional evaluations, what the forms and supervision scale look like, and what practice readiness means in detail.">
           <Exp title="How is this different from traditional evaluations?" open={true}>
-            <p style={{ margin: "0 0 12px" }}>You may be familiar with end-of-rotation evaluations: a faculty member completes a form days or weeks later, summarizing general impressions. The ABP/SIMPL platform takes a fundamentally different approach.</p>
+            <p style={{ margin: "0 0 10px" }}>You may be familiar with end-of-rotation evaluations: a form completed weeks later based on general impressions. The ABP/SIMPL platform takes a fundamentally different approach.</p>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, margin: "0 0 4px" }}>
               {[{ t: "End-of-Rotation (Old)", items: ["One form per rotation", "Completed days/weeks later", "Based on general impressions", "Vague, hard to act on"], bad: true },
                 { t: "Workplace-Based (SIMPL)", items: ["Many forms per rotation", "Completed close to encounters", "Tied to specific activities", "Specific, actionable feedback"], bad: false }
               ].map((col, ci) => (
-                <div key={ci} style={{ background: col.bad ? C.tint : C.amberSub, border: "1px solid " + C.border, borderRadius: 10, padding: "14px 12px" }}>
-                  <div style={{ fontFamily: serif, fontWeight: 700, fontSize: 13.5, color: C.text, marginBottom: 8 }}>{col.t}</div>
-                  {col.items.map((item, j) => <div key={j} style={{ fontFamily: sans, fontSize: 13, color: C.text2, lineHeight: 1.6, paddingLeft: 14, position: "relative", marginBottom: 3 }}><span style={{ position: "absolute", left: 0, fontWeight: 700 }}>{col.bad ? "\u2013" : "\u2713"}</span>{item}</div>)}
+                <div key={ci} style={{ background: col.bad ? C.tint : C.amberSub, border: "1px solid " + C.border, borderRadius: 10, padding: "12px 12px" }}>
+                  <div style={{ fontFamily: serif, fontWeight: 700, fontSize: 13, color: C.text, marginBottom: 7 }}>{col.t}</div>
+                  {col.items.map((item, j) => <div key={j} style={{ fontFamily: sans, fontSize: 13, color: C.text2, lineHeight: 1.55, paddingLeft: 14, position: "relative", marginBottom: 3 }}><span style={{ position: "absolute", left: 0, fontWeight: 700 }}>{col.bad ? "\u2013" : "\u2713"}</span>{item}</div>)}
                 </div>
               ))}
             </div>
           </Exp>
-          <Exp title="What types of assessment forms are there?">
-            <p style={{ margin: "0 0 10px" }}><strong>EPA-Based Forms:</strong> The core of the platform. Each maps to one of the 12 General Pediatrics EPAs and includes a supervision rating, required narrative comments, and clinical context. Forms take 1-3 minutes.</p>
-            <p style={{ margin: "0 0 10px" }}><strong>Narrative-Only Forms (KSAs):</strong> Written feedback on cross-cutting skills: knowing limits, communicating with families, professional behaviors, promoting health equity.</p>
-            <p style={{ margin: 0 }}><strong>Longitudinal Continuity Clinic Assessment:</strong> Your continuity clinic preceptor's observations over multiple encounters. Particularly valuable because they observe you in the general pediatrics practice environment over time.</p>
+          <Exp title="What types of forms are there?">
+            <p style={{ margin: "0 0 8px" }}><strong>EPA-Based Forms:</strong> The core. Each maps to one of the 12 EPAs and includes a supervision rating, required narrative comments, and clinical context. Takes 1-3 minutes.</p>
+            <p style={{ margin: "0 0 8px" }}><strong>Narrative-Only Forms (KSAs):</strong> Written feedback on cross-cutting skills: knowing limits, communicating with families, professional behaviors, health equity.</p>
+            <p style={{ margin: 0 }}><strong>Longitudinal Continuity Clinic Assessment:</strong> Your preceptor's observations over multiple encounters. Particularly valuable.</p>
           </Exp>
-          <Exp title="What does the supervision scale mean?">
-            <p style={{ margin: "0 0 12px" }}>Each EPA-based assessment includes a rating: <em>How much supervision did the resident need?</em> This refers to any supervisor involved {"\u2014"} not just the person completing the form.</p>
+          <Exp title="The SIMPL Supervision Scale">
+            <p style={{ margin: "0 0 10px" }}>Each EPA-based assessment includes a rating: <em>How much supervision did the resident need?</em></p>
             <div style={{ display: "flex", flexDirection: "column", gap: 0, background: C.surface, border: "1px solid " + C.border, borderRadius: 10, overflow: "hidden", marginBottom: 8 }}>
               {SCALE.map((s, i) => (
-                <button key={s.level} onClick={(e) => { e.stopPropagation(); setSelLevel(selLevel === s.level ? null : s.level); }}
-                  style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", cursor: "pointer", textAlign: "left", border: "none", borderTop: i > 0 ? "1px solid " + C.border : "none", background: selLevel === s.level ? C.tint : "transparent", width: "100%" }}>
-                  <div style={{ width: 32, height: 32, borderRadius: 7, background: s.color + "18", color: s.color, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: serif, fontWeight: 700, fontSize: 14, flexShrink: 0 }}>{s.level}</div>
+                <button key={s.level} onClick={e => { e.stopPropagation(); setSelLevel(selLevel === s.level ? null : s.level); }}
+                  style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 12px", cursor: "pointer", textAlign: "left", border: "none", borderTop: i > 0 ? "1px solid " + C.border : "none", background: selLevel === s.level ? C.tint : "transparent", width: "100%" }}>
+                  <div style={{ width: 30, height: 30, borderRadius: 7, background: s.color + "18", color: s.color, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: serif, fontWeight: 700, fontSize: 13, flexShrink: 0 }}>{s.level}</div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontFamily: serif, fontSize: 13.5, fontWeight: 700, color: C.text }}>{s.title}</div>
+                    <div style={{ fontFamily: serif, fontSize: 13, fontWeight: 700, color: C.text }}>{s.title}</div>
                     <div style={{ fontFamily: sans, fontSize: 12, color: C.text2 }}>{s.short}</div>
                   </div>
                 </button>
               ))}
             </div>
             {selLevel && (() => { const s = SCALE.find(x => x.level === selLevel); return (
-              <div style={{ background: C.amberSub, border: "1px solid " + C.accent, borderRadius: 8, padding: "12px 14px", margin: "6px 0 10px", fontFamily: sans, fontSize: 14, lineHeight: 1.7, color: C.text }}>
+              <div style={{ background: C.amberSub, border: "1px solid " + C.accent, borderRadius: 8, padding: "10px 13px", margin: "6px 0 8px", fontFamily: sans, fontSize: 13.5, lineHeight: 1.7, color: C.text }}>
                 <span style={{ fontWeight: 700, color: s.color }}>Level {s.level}:</span> {s.detail}
               </div>
             ); })()}
-            <p style={{ fontFamily: sans, fontSize: 12.5, color: C.text2, fontStyle: "italic", margin: "6px 0 0", lineHeight: 1.5 }}>Each rating is retrospective: how much supervision was needed, not how much was delivered.</p>
+            <p style={{ fontFamily: sans, fontSize: 12, color: C.text2, fontStyle: "italic", margin: "6px 0 0" }}>Each rating is retrospective: how much supervision was needed, not how much was delivered.</p>
           </Exp>
           <Exp title="What does practice ready mean in detail?">
-            <p style={{ margin: "0 0 10px" }}>Pediatric residency prepares you to perform the essential activities of a general pediatrician safely and effectively without someone assigned to direct or oversee your work. These activities are defined as <Tip def="Entrustable Professional Activities are the essential tasks that define what a pediatrician does.">Entrustable Professional Activities (EPAs)</Tip>.</p>
-            <p style={{ margin: "0 0 10px" }}><strong>Practice ready does not mean expert, and it does not mean complete independence.</strong> Every practicing pediatrician works within systems of consultation, referral, and team-based care.</p>
-            <p style={{ margin: "0 0 10px" }}><strong>Practice ready is a foundation {"\u2014"} not a ceiling.</strong> You may advance beyond this for some EPAs during training. This standard is the same for everyone regardless of career path.</p>
+            <p style={{ margin: "0 0 8px" }}><strong>Practice ready does not mean expert, and it does not mean complete independence.</strong> Every practicing pediatrician works within systems of consultation, referral, and team-based care.</p>
+            <p style={{ margin: "0 0 8px" }}><strong>You are not expected to be practice ready on day one.</strong> That is the point of training. Practice ready is a foundation {"\u2014"} not a ceiling. This standard is the same for everyone regardless of career path.</p>
             <LinkBtn href="https://www.abp.org/sites/public/files/pdf/epas-general-pediatrics-summary.pdf">View the 12 EPAs</LinkBtn>
           </Exp>
-        </PurposeTile>
-      </section>
+          <Exp title="This gets easier.">
+            <p style={{ margin: "0 0 8px" }}>Programs that have used this system for more than a year consistently report it gets meaningfully easier. Technical issues resolve, faculty get comfortable, the data becomes richer. The first few months are the hardest.</p>
+            <p style={{ margin: 0 }}>We are constantly improving based on feedback from residents, faculty, and programs. If you find the system valuable, saying so matters.</p>
+          </Exp>
+        </Tile>
+      </div>
 
-      {/* ===== CULTURE CHANGE ===== */}
-      <section style={{ maxWidth: 960, margin: "0 auto", padding: "16px 32px 0" }}>
-        <PurposeTile icon={"\u{1F91D}"} iconBg={C.greenSub} label="Culture Change" labelColor={C.green}
-          title="This gets easier"
-          summary="Programs that have used this system for more than a year consistently report that it gets meaningfully easier. The first few months are the hardest.">
-          <div style={{ background: C.greenSub, borderLeft: "3px solid " + C.green, borderRadius: "0 8px 8px 0", padding: "14px 16px", margin: "0 0 14px", fontFamily: sans, fontSize: 14.5, color: C.text, lineHeight: 1.7 }}>
-            Technical issues resolve. Faculty get comfortable with the tools. Residents get comfortable with the feedback. The data becomes richer and more useful.
-          </div>
-          <Exp title="Culture change is the hardest part.">
-            <p style={{ margin: 0 }}>The app and dashboards are the easy part. Shifting how faculty think about assessment and how residents think about feedback is the hard part. If you find the system valuable, saying so matters.</p>
-          </Exp>
-          <Exp title="Feedback looks different in this system.">
-            <p style={{ margin: 0 }}>Traditional systems surfaced constructive feedback only when something was wrong. Here, developmental feedback is woven into normal observations. Look for growth opportunities even in strong assessments.</p>
-          </Exp>
-          <Exp title="We are not building from scratch.">
-            <p style={{ margin: 0 }}>Pediatrics is not the first specialty to do this. This platform was built in partnership with SIMPL, informed by implementation experiences across specialties and countries.</p>
-          </Exp>
-          <Exp title="We are constantly improving.">
-            <p style={{ margin: 0 }}>Since launch, we have added new forms, retitled forms for usability, and refined content based on feedback. If you have a suggestion and haven't seen it reflected, it may be in the pipeline.</p>
-          </Exp>
-          <div style={{ background: C.amberSub, borderLeft: "3px solid " + C.amber, borderRadius: "0 8px 8px 0", padding: "14px 16px", margin: "8px 0 0", fontFamily: sans, fontSize: 14.5, color: C.text, lineHeight: 1.7 }}>
-            <strong>We need you in this.</strong> This system only works if residents are active partners: initiating assessments, reading feedback, using data, and telling us what is and is not working.
-          </div>
-        </PurposeTile>
-      </section>
-
-      {/* ===== FOOTER ===== */}
+      {/* FOOTER */}
       <div style={{ background: C.surface, borderTop: "1px solid " + C.border, marginTop: 36 }}>
         <div style={{ maxWidth: 960, margin: "0 auto", padding: "28px 32px" }}>
-          <div style={{ fontFamily: sans, fontSize: 11.5, fontWeight: 700, color: C.amber, textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 16 }}>Questions or Concerns?</div>
+          <div style={{ fontFamily: sans, fontSize: 12, fontWeight: 700, color: C.amber, textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 16 }}>Questions or Concerns?</div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
             <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
               <div style={{ width: 34, height: 34, borderRadius: 9, background: C.tint, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 16 }}>{"\u{1F91D}"}</div>
               <div>
                 <div style={{ fontFamily: serif, fontWeight: 700, fontSize: 15, color: C.text, marginBottom: 3 }}>Concerns about your assessments?</div>
-                <div style={{ fontFamily: sans, fontSize: 14, color: C.text2, lineHeight: 1.6 }}>Please reach out to a trusted member of your program. Your voice helps us create stronger and more equitable systems.</div>
+                <div style={{ fontFamily: sans, fontSize: 14, color: C.text2, lineHeight: 1.6 }}>Reach out to a trusted member of your program.</div>
               </div>
             </div>
             <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
