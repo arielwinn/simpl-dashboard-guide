@@ -195,42 +195,41 @@ function App() {
         </div>
       </nav>
 
-      {/* ===== THE PLATFORM GOAL ===== */}
-      <section style={{ maxWidth: 960, margin: "0 auto", padding: "44px 32px 0" }}>
-        <div onClick={() => scrollTo("essentials")} style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 14, padding: "28px 28px", cursor: "pointer", transition: "border-color .15s, box-shadow .15s" }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = C.accent; e.currentTarget.style.boxShadow = "0 4px 16px rgba(154,123,44,.08)"; }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "none"; }}>
-          <div style={{ fontFamily: sans, fontSize: 11.5, fontWeight: 700, color: C.amber, textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 8 }}>The Goal of This Platform</div>
-          <p style={{ fontFamily: sans, fontSize: 16.5, lineHeight: 1.8, color: C.text, margin: "0 0 14px" }}>This assessment platform was built to replace vague end-of-rotation evaluations with frequent, specific, encounter-based feedback tied to the 12 <Tip def="Entrustable Professional Activities are the essential tasks that define what a pediatrician does. Each represents a unit of clinical work that can be observed, assessed, and \u2014 when a trainee is ready \u2014 entrusted to them without supervision.">Entrustable Professional Activities (EPAs)</Tip> that define what a general pediatrician does. The goal: by graduation, you can perform these activities safely and effectively without assigned supervision. That standard is called <em>practice ready</em> {"\u2014"} and it is the required outcome for certification.</p>
-          <p style={{ fontFamily: sans, fontSize: 15, lineHeight: 1.7, color: C.text2, margin: "0 0 14px" }}>Practice ready does not mean expert. It does not mean working alone. It means you can be trusted with these essential activities without someone assigned to oversee you {"\u2014"} while still consulting colleagues, using resources, and working within teams. You are not expected to be practice ready on day one. That is the point of training.</p>
-          <p style={{ fontFamily: sans, fontSize: 15, lineHeight: 1.7, color: C.text2, margin: "0 0 14px" }}><strong>Current EPA assignments are developmental and are not reported to the ABP.</strong> They are intended to provide you with data to support your growth and to give your program more specific information to make decisions about your progress toward becoming practice ready {"\u2014"} which will become consequential in 2028.</p>
-          <div style={{ fontFamily: sans, fontSize: 13.5, fontWeight: 600, color: C.amber }}>More about EPAs, practice readiness, and how the platform works {"\u2193"}</div>
-        </div>
-      </section>
+      {/* ===== PLATFORM GOAL + DASHBOARD PURPOSES SIDE BY SIDE ===== */}
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "36px 32px 20px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, alignItems: "start" }}>
 
-      {/* ===== THREE PURPOSES OF YOUR DASHBOARD ===== */}
-      <section style={{ maxWidth: 960, margin: "0 auto", padding: "32px 32px 20px" }}>
-        <h2 style={{ fontFamily: serif, fontSize: 26, fontWeight: 700, color: C.text, margin: "0 0 6px" }}>What Your Dashboard Does</h2>
-        <div style={{ fontFamily: sans, fontSize: 13.5, color: C.amber, fontWeight: 600, letterSpacing: ".02em", marginBottom: 20 }}>Three purposes, one tool</div>
+          {/* LEFT: Platform Goal */}
+          <div onClick={() => scrollTo("essentials")} style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 14, padding: "26px 24px", cursor: "pointer", transition: "border-color .15s, box-shadow .15s" }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = C.accent; e.currentTarget.style.boxShadow = "0 4px 16px rgba(154,123,44,.08)"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "none"; }}>
+            <div style={{ fontFamily: sans, fontSize: 11.5, fontWeight: 700, color: C.amber, textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 10 }}>The Goal of This Platform</div>
+            <p style={{ fontFamily: sans, fontSize: 15.5, lineHeight: 1.75, color: C.text, margin: "0 0 12px" }}>This platform replaces vague end-of-rotation evaluations with frequent, specific, encounter-based feedback tied to the 12 <Tip def="Entrustable Professional Activities are the essential tasks that define what a pediatrician does. Each represents a unit of clinical work that can be observed, assessed, and \u2014 when a trainee is ready \u2014 entrusted to them without supervision.">EPAs</Tip> that define what a general pediatrician does.</p>
+            <p style={{ fontFamily: sans, fontSize: 15.5, lineHeight: 1.75, color: C.text, margin: "0 0 12px" }}>The goal: by graduation, you can perform these activities safely and effectively without assigned supervision. That standard is called <em>practice ready</em> {"\u2014"} the required outcome for certification.</p>
+            <p style={{ fontFamily: sans, fontSize: 14, lineHeight: 1.7, color: C.text2, margin: "0 0 12px" }}>Practice ready does not mean expert or working alone. You are not expected to be there on day one {"\u2014"} that is the point of training.</p>
+            <p style={{ fontFamily: sans, fontSize: 14, lineHeight: 1.7, color: C.text2, margin: "0 0 14px" }}><strong>Current EPA assignments are developmental and are not reported to the ABP.</strong></p>
+            <div style={{ fontFamily: sans, fontSize: 13, fontWeight: 600, color: C.amber }}>More about EPAs, practice readiness & the platform {"\u2193"}</div>
+          </div>
 
-        <P mb={24}>Your dashboard makes you a partner in tracking your own growth. It serves three purposes:</P>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, margin: "0 0 8px" }}>
-          {[
-            { icon: "\u{1F4CA}", bg: C.amberSub, label: "Volume", color: C.amber, title: "Track your assessment volume", desc: "See how many assessments you have, how they\u2019re distributed across EPAs, and where you may have gaps \u2014 so you can ensure you\u2019re getting sufficient data.", target: "volume" },
-            { icon: "\u{1F331}", bg: C.greenSub, label: "Growth", color: C.green, title: "Promote your growth", desc: "Supervision trends and narrative comments give you actionable feedback to identify strengths, notice growth areas, and build learning goals with your faculty coach.", target: "data" },
-            { icon: "\u{1F9ED}", bg: "#EDE8F5", label: "Progress", color: "#6B5B95", title: "Assess where you are", desc: "Help you and your program accurately understand where you are on your trajectory toward performing the activities of a general pediatrician without supervision.", target: "ccc" },
-          ].map((p, i) => (
-            <div key={i} onClick={() => scrollTo(p.target)} style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 14, padding: "24px 20px", cursor: "pointer", transition: "border-color .15s, box-shadow .15s" }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = C.accent; e.currentTarget.style.boxShadow = "0 4px 16px rgba(154,123,44,.08)"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "none"; }}>
-              <div style={{ width: 48, height: 48, borderRadius: 12, background: p.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, marginBottom: 14 }}>{p.icon}</div>
-              <div style={{ fontFamily: sans, fontSize: 11, fontWeight: 700, color: p.color, textTransform: "uppercase", letterSpacing: ".08em", marginBottom: 6 }}>{p.label}</div>
-              <div style={{ fontFamily: serif, fontSize: 18, fontWeight: 700, color: C.text, marginBottom: 8, lineHeight: 1.3 }}>{p.title}</div>
-              <div style={{ fontFamily: sans, fontSize: 14.5, color: C.text2, lineHeight: 1.7 }}>{p.desc}</div>
-              <div style={{ fontFamily: sans, fontSize: 13, fontWeight: 600, color: C.amber, marginTop: 12 }}>Learn more {"\u2193"}</div>
-            </div>
-          ))}
+          {/* RIGHT: Three Dashboard Purposes stacked */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ fontFamily: sans, fontSize: 11.5, fontWeight: 700, color: C.amber, textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 0, paddingLeft: 2 }}>What Your Dashboard Does</div>
+            {[
+              { icon: "\u{1F4CA}", bg: C.amberSub, color: C.amber, title: "Track your assessment volume", desc: "How many assessments you have, distribution across EPAs, and where you may have gaps.", target: "volume" },
+              { icon: "\u{1F331}", bg: C.greenSub, color: C.green, title: "Promote your growth", desc: "Actionable feedback from supervision trends and narrative comments to build learning goals.", target: "data" },
+              { icon: "\u{1F9ED}", bg: "#EDE8F5", color: "#6B5B95", title: "Assess where you are", desc: "Help you and your program understand your trajectory toward practice readiness.", target: "ccc" },
+            ].map((p, i) => (
+              <div key={i} onClick={() => scrollTo(p.target)} style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 12, padding: "16px 18px", cursor: "pointer", transition: "border-color .15s, box-shadow .15s", display: "grid", gridTemplateColumns: "44px 1fr", gap: 14, alignItems: "center" }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = C.accent; e.currentTarget.style.boxShadow = "0 3px 12px rgba(154,123,44,.06)"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "none"; }}>
+                <div style={{ width: 44, height: 44, borderRadius: 11, background: p.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>{p.icon}</div>
+                <div>
+                  <div style={{ fontFamily: serif, fontSize: 16, fontWeight: 700, color: C.text, marginBottom: 3, lineHeight: 1.3 }}>{p.title}</div>
+                  <div style={{ fontFamily: sans, fontSize: 13.5, color: C.text2, lineHeight: 1.55 }}>{p.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
