@@ -153,9 +153,9 @@ function App() {
         {/* PLATFORM PURPOSE */}
         <div style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 14, padding: "18px 28px", marginBottom: 16 }}>
           <p style={{ fontFamily: serif, fontSize: 16, fontWeight: 700, color: C.text, lineHeight: 1.55, textAlign: "center", margin: "0 0 10px" }}>
-            This platform and dashboard are built to ensure that at the time of graduation and certification, you are <em style={{ color: C.amber }}>practice ready</em> — able to provide safe and effective care as a general pediatrician.
+            This platform and dashboard are built to ensure that at the time of graduation and certification, you are <em style={{ color: C.amber }}>practice ready</em>, able to provide safe and effective care as a general pediatrician.
           </p>
-          <Exp title="What does that mean? Learn more.">
+          <Exp title="What does practice ready mean?">
             <p style={{ margin: "0 0 14px", color: C.text2 }}>Pediatric residency prepares you to perform the essential activities of a general pediatrician (things like providing well-child care, managing acute illness, recognizing a severely ill child) safely and effectively in general pediatrics practice settings without someone assigned to direct or oversee your work. These essential activities are defined as Entrustable Professional Activities (EPAs), and the standard of being able to perform them at this level is what we call <em>practice ready</em>.</p>
             <p style={{ margin: "0 0 14px", color: C.text }}><strong>The required outcome of training for graduation and to be eligible to become board certified is to be practice ready across all of the General Pediatrics EPAs.</strong></p>
             <p style={{ margin: "0 0 14px", color: C.text }}><strong>Practice ready does not mean expert, and it does not mean complete independence.</strong> <span style={{ color: C.text2 }}>Pediatrics is inherently collaborative, and every practicing pediatrician works within systems of consultation, referral, and team-based care. Practice ready means you can be trusted to perform these essential activities (i.e. the EPAs) without someone assigned to direct or oversee your work, not that you practice without ever needing input or support.</span></p>
@@ -180,39 +180,41 @@ function App() {
               <p style={{ margin: 0 }}>If your program uses a model where you push assessments to faculty, the data show that the more you initiate, the more assessments you receive. More pushes also mean more that go uncompleted. Try not to let that discourage you. The completed ones still add up.</p>
             </Exp>
             <Exp title="Faculty are learning too.">
-              <p style={{ margin: 0 }}>If faculty aren't completing assessments or aren't initiating them as expected, know that this is a learning curve for everyone. Faculty are figuring out new tools and workflows at the same time you are. We're all learning this system together, and it gets easier with time.</p>
+              <p style={{ margin: 0 }}>If faculty aren't completing or initiating assessments as expected, know that this is a learning curve for everyone. Faculty are figuring out new tools and workflows at the same time you are. We're all learning this system together, and it gets easier with time. Please reach out to a member of your program with specific concerns to see how they can help ensure your assessments are completed.</p>
+            </Exp>
+            <Exp title="Coming soon: Incomplete assessment tracking.">
+              <p style={{ margin: 0 }}>We are actively developing visibility into your incomplete assessments (assessments that were initiated but not yet completed by faculty). This will allow you to track which assessments have been sent to faculty and which are still outstanding, giving you a fuller picture of your assessment activity and helping you follow up when needed.</p>
             </Exp>
           </Tile>
 
           {/* TILE 2: GROWTH */}
           <Tile icon={"\u{1F331}"} iconBg={C.greenSub}
             title="Promote your growth toward practice readiness"
-            summary="Your supervision trends and narrative comments give you actionable feedback. Use them to identify strengths, notice growth areas, and build learning goals with your faculty coach.">
-            <Exp title="Look for patterns, not snapshots." open={false}>
-              <p style={{ margin: "0 0 10px" }}>The graphs show you patterns over time. Look for growth, and also notice periods where growth may have plateaued or dropped.</p>
-              <p style={{ margin: "0 0 10px" }}><strong>Normal growth is not always linear</strong> {"\u2014"} we have good days and days that aren't our best. Dips and plateaus should be expected and provide an opportunity for reflection.</p>
-              <p style={{ margin: 0 }}>If you see a plateau or dip, ask yourself: Do the narrative comments help me understand what I could work on? Can I use that to build an action plan?</p>
+            summary="Your narrative comments are your richest source of feedback. These are where you'll find both areas of strength and areas where you can focus to take your performance to the next level.">
+            <Exp title="Use your narratives to build learning and growth plans.">
+              <p style={{ margin: 0 }}>The narrative comments within your EPA-based forms and narrative-only forms are not just feedback to read once and move on from. They are the raw material for your learning and growth plans. At the level of an individual assessment, a comment can point you toward something specific to work on in your next encounter. But the real power comes from looking across your comments over time and noticing patterns: are multiple faculty noting the same area for growth? Is something that used to come up no longer appearing? Are there themes in what you do well that you can build on?</p>
             </Exp>
-            <Exp title="Your narrative comments are your richest source of feedback." open={false}>
-              <p style={{ margin: "0 0 10px" }}>Developmental feedback isn't always obvious {"\u2014"} it frequently lacks a label like "area for improvement." It's often normal growth.</p>
+            <Exp title='Make sure not to miss "hidden" feedback.'>
+              <p style={{ margin: "0 0 10px" }}>In this type of assessment system, developmental feedback isn't always obvious, as it frequently lacks a label of "area for improvement" or "deficiency." And that makes sense, because most often an area for growth does not represent a deficiency but rather expected development in training.</p>
               <ExBox>
-                <span>A faculty member might write: <em style={{ color: C.text }}>"Managed the acute visit well and chose the right antibiotic, but could strengthen discharge counseling by checking back with the family."</em></span>
-                <div style={{ marginTop: 8, fontWeight: 600, color: C.text }}>That's not a problem {"\u2014"} that's a growth opportunity inside a strong assessment.</div>
+                <span>For example, a faculty member might write that you <em style={{ color: C.text }}>"managed the acute visit well and chose the right antibiotic, I only helped with determining discharge readiness and clarified some discharge education."</em></span>
+                <div style={{ marginTop: 8, fontWeight: 600, color: C.text }}>The implied feedback is that the trainee needs further development on discharge readiness and communication. That's not a problem; that's a growth opportunity sitting right inside an otherwise strong assessment.</div>
               </ExBox>
-              <p style={{ margin: "0 0 10px" }}>Look <strong>across your comments over time</strong>. Are multiple faculty noting the same area? Is something that used to come up no longer appearing? Are expectations getting harder {"\u2014"} a sign you're being trusted with more?</p>
-              <p style={{ margin: 0 }}>Use these patterns with your faculty coach to set concrete learning goals.</p>
             </Exp>
-            <Exp title="Don't rely on averages.">
-              <p style={{ margin: 0 }}>Each supervision rating reflects one judgment about one past encounter. Ratings, narrative comments, clinical context, and patterns over time should all be interpreted together. No single number tells the story.</p>
+            <Exp title="Sometimes the narrative comments will feel unhelpful.">
+              <p style={{ margin: "0 0 10px" }}>Narrative quality is not universally high. Some comments will be vague, brief, or feel like they do not tell you anything useful. This is a known challenge, and faculty are actively developing their skills in providing specific, actionable feedback. For the most part, narrative comments in workplace-based assessment systems such as this one are more specific and actionable than what was typically written in end-of-rotation evaluations, but that does not mean every individual comment will feel useful to you.</p>
+              <p style={{ margin: 0 }}>If you are worried about a comment or do not know how to interpret it, please reach out to either the individual who wrote it, a faculty coach, or a trusted member in your program to discuss it further.</p>
             </Exp>
-            <Exp title="Not sure what to do with a comment?">
-              <p style={{ margin: 0 }}>That's okay {"\u2014"} bring it to your faculty coach or a trusted mentor. They can help you interpret the feedback in context.</p>
+            <Exp title="We encourage faculty to dictate quickly and not proofread.">
+              <p style={{ margin: 0 }}>We want many low-stakes data points rather than a few polished ones. That means some comments may contain dictation artifacts or read less polished than you might expect. That is by design. A quick, timely observation captured in the moment is more valuable than a carefully edited paragraph completed days later or not at all.</p>
             </Exp>
-            <Exp title="Worried a rating may reflect bias?">
-              <p style={{ margin: 0 }}>That concern is valid and important. Bring it to a trusted member of your program. One of the goals of this system is to improve equity {"\u2014"} and that only works if concerns are surfaced.</p>
+            <Exp title="What to do if you have concerns about bias?">
+              <p style={{ margin: "0 0 10px" }}>Bias exists in all assessment systems, and this one is no exception. We have built in several strategies to mitigate bias, including just-in-time teaching prompts that discourage personality-based labels, collecting many data points from diverse assessors, and providing transparency so you can see your own data. But these strategies reduce bias; they do not eliminate it.</p>
+              <p style={{ margin: 0 }}>If you have concerns about bias in an individual assessment or based on patterns in your assessment data, please reach out to a trusted member of your program. Your voice helps us create stronger and more equitable systems. Raising concerns is not a complaint; it is a contribution to improving the system for everyone.</p>
             </Exp>
-            <Exp title="Faculty are still learning the scales.">
-              <p style={{ margin: 0 }}>Their numerical ratings may not always align with the narrative. With more assessments, individual inconsistencies matter less and the overall pattern becomes clearer.</p>
+            <Exp title="Frequent feedback can feel like a lot.">
+              <p style={{ margin: "0 0 10px" }}>We know that some residents love getting frequent feedback and for some it can feel overwhelming. Both reactions are completely understandable. This is a fundamentally different volume of feedback than what you may have experienced before, and it takes time to develop a relationship with that much data.</p>
+              <p style={{ margin: 0 }}>Prior pilots and early data from this implementation suggest that both faculty and residents end up preferring this system over time. The first months are the adjustment period. Stick with it. And if it feels like too much, remember that you do not need to process every assessment in isolation. The dashboard exists precisely to help you see the patterns without getting lost in individual data points.</p>
             </Exp>
           </Tile>
 
@@ -220,17 +222,47 @@ function App() {
           <Tile icon={"\u{1F9ED}"} iconBg="#EDE8F5"
             title="Help you and your program assess where you are"
             summary="The same data helps you and your program accurately understand where you are on your trajectory toward performing the activities of a general pediatrician without supervision at the time of graduation.">
-            <p style={{ fontFamily: sans, fontSize: 14.5, lineHeight: 1.75, color: C.text2, margin: "0 0 14px" }}>Your <Tip def="A group of faculty and educators responsible for monitoring your progress and making decisions about your supervision needs across all EPAs.">Clinical Competency Committee (CCC)</Tip> reviews your aggregate data: supervision ratings, narrative comments, clinical context, and patterns over time. The approach described in this guide {"\u2014"} patterns over snapshots, narratives alongside ratings {"\u2014"} is the same approach your program and CCC should be using.</p>
+            <p style={{ fontFamily: sans, fontSize: 14.5, lineHeight: 1.75, color: C.text2, margin: "0 0 14px" }}>Your <Tip def="A group of faculty and educators responsible for monitoring your progress and making decisions about your supervision needs across all EPAs.">Clinical Competency Committee (CCC)</Tip> reviews your aggregate data: supervision ratings, narrative comments, clinical context, and patterns over time. The approach described in this guide (patterns over snapshots, narratives alongside ratings) is the same approach your program and CCC should be using.</p>
             <Exp title="No single data point carries too much weight.">
               <p style={{ margin: 0 }}>With many data points from diverse faculty across settings and time, no single assessment should significantly influence a CCC determination.</p>
             </Exp>
-            <Exp title="Preparing for 2028">
-              <p style={{ margin: "0 0 10px" }}>Beginning in 2028, the ABP will require program directors to attest that graduates are practice ready across all EPAs as a prerequisite for initial certification.</p>
-              <p style={{ margin: 0 }}>Current EPA assignments are developmental and are <strong>not reported to the ABP</strong>. They are intended to provide you with data to support your growth and to give your program more specific information to make decisions about your progress {"\u2014"} which will become consequential in 2028.</p>
+            <Exp title="Look for patterns, not snapshots.">
+              <p style={{ margin: 0 }}>The graphs show you patterns over time. Look for growth, and also notice periods where growth may have plateaued or appears to have dropped. Normal growth is not always linear. We have good days and days that aren't our best. We go from rotations that we feel comfortable and strong in to rotations where we might need more help and support. This is all normal. A plateau might reflect your practice or a gap in the assessment data. If you see a plateau or dip, it's a great time to reflect: What's going on in this area? Do the narrative comments help me understand what I could work on? Can I use that information to build an action plan for myself?</p>
             </Exp>
-            <Exp title="This gets easier.">
-              <p style={{ margin: "0 0 8px" }}>Programs that have used this system for more than a year consistently report it gets meaningfully easier. Technical issues resolve, faculty get comfortable, the data becomes richer. The first few months are the hardest.</p>
-              <p style={{ margin: 0 }}>We are constantly improving based on feedback. If you find the system valuable, saying so matters.</p>
+            <Exp title="Don't rely on averages.">
+              <p style={{ margin: 0 }}>Neither you nor your CCC should rely on numerical averages alone to determine supervision needs. Each supervision rating reflects a supervisor's retrospective judgment about how much supervision you needed for a specific past encounter. This is different from what you will need in a future practice setting outside a training environment. The supervision ratings, narrative comments, clinical context, sources of assessment, and patterns over time should all be interpreted together. No single number tells the story; the whole picture does.</p>
+            </Exp>
+            <Exp title="Faculty are still learning the scales.">
+              <p style={{ margin: 0 }}>Faculty are still developing comfort with the supervision rating scales, and their numerical ratings may sometimes seem off to you or may not fully align with what they wrote in the narrative. This is a known challenge, especially early on, and it is one more reason why having more assessments helps. With a larger number of data points, individual rating inconsistencies matter much less, and the overall pattern becomes clearer for you and your program.</p>
+            </Exp>
+          </Tile>
+        </div>
+
+        {/* NOTE OF APPRECIATION */}
+        <div style={{ marginTop: 24 }}>
+          <Tile icon={"\u{1F4AC}"} iconBg="#FFF0F0"
+            title="A note to you from the team building this"
+            summary="">
+            <Exp title="Why we are building this.">
+              <p style={{ margin: 0 }}>We are building this because we genuinely believe it will produce more meaningful feedback for you and more reliable data for the decisions that affect your training, and because we believe our assessment systems should be focused on the outcome that matters most: ensuring that new pediatricians can meet the needs of their patients. We are not building from scratch. We have the benefit of learning from other specialties and countries that have gone through this before us, and from the over 80 programs now using this platform together. We know from those experiences that the transition to a system like this is harder before it gets better, but it does get better. We are so appreciative of you because you are sitting in the hardest part. You are giving the feedback that makes this system better. You are helping shift the culture that needs to shift. That matters, and we do not take it for granted.</p>
+            </Exp>
+            <Exp title="We are working on it.">
+              <p style={{ margin: 0 }}>We are actively working on faculty engagement. We are trying to rapidly build and improve the technology.</p>
+            </Exp>
+            <Exp title="Technology can move both fast and slow.">
+              <p style={{ margin: 0 }}>We are learning that some changes can be made quickly and others take much longer than expected, and it is not always intuitive which changes fall into which category. Something that sounds simple from a user perspective may require significant engineering, coordination across programs, or depend on platform capabilities that are still being developed. We are prioritizing based on impact, feasibility, and alignment with the system's purpose, and the technology is advancing with each iteration.</p>
+            </Exp>
+            <Exp title="Every design decision involves tradeoffs.">
+              <p style={{ margin: 0 }}>One of the tricky things about building a system like this is that it needs to be evidence-informed and work across many different programs and users. That means we cannot always optimize for one group without creating tradeoffs for another. When faculty tell us the forms take too long, and residents tell us the narrative feedback is not detailed enough, those are real tensions, and we are trying to be thoughtful about how we navigate them. Every design decision involves weighing what is best for residents, what is feasible for faculty, and what produces the most useful data for the decisions that ultimately matter for your training and your patients.</p>
+            </Exp>
+            <Exp title="We have made many changes based on feedback and will continue to.">
+              <p style={{ margin: 0 }}>Many changes have already been made based on what we have heard from residents, faculty, and program leaders, and we will continue to make more. If you have made a suggestion and have not yet seen it reflected, it does not mean it was not heard.</p>
+            </Exp>
+            <Exp title="We know we will not get everything right.">
+              <p style={{ margin: 0 }}>Built into this platform is the idea that we will need to learn and grow alongside you. We have not gotten everything right, and we will not. But we have committed to being transparent about the decisions we make, to learning from what happens when those decisions meet reality, and to revising when the evidence tells us we should. That is not a flaw in the system. It is how the system was designed to work.</p>
+            </Exp>
+            <Exp title="Thank you.">
+              <p style={{ margin: 0 }}>Your willingness to engage with this system, even when it is imperfect, even when it is frustrating, is what makes it possible for it to get better. So thank you. And please keep telling us what is and is not working.</p>
             </Exp>
           </Tile>
         </div>
