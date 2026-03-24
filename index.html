@@ -121,7 +121,12 @@ function App() {
   return (
     <div style={{ background: C.bg, minHeight: "100vh" }}>
 
-      {/* BANNER */}
+      {/* LIVING DOC BANNER */}
+      <div style={{ background: C.amberSub, borderBottom: "1px solid " + C.accent, padding: "10px 32px", textAlign: "center" }}>
+        <p style={{ fontFamily: sans, fontSize: 13.5, color: C.amber, fontWeight: 600, lineHeight: 1.5, maxWidth: 700, margin: "0 auto" }}>This resource is a living document. We continue to update and improve it based on feedback.</p>
+      </div>
+
+      {/* HEADER */}
       <header style={{ background: C.surface, borderBottom: "1px solid " + C.border }}>
         <div style={{ maxWidth: 960, margin: "0 auto", padding: "36px 32px 28px", textAlign: "center" }}>
           <h1 style={{ fontFamily: serif, fontSize: 32, fontWeight: 800, color: C.text, margin: "0 0 8px", lineHeight: 1.2 }}>A Guide to Using Your Assessment Dashboard</h1>
@@ -136,7 +141,7 @@ function App() {
               {"\u{1F4CA}"} Open Your Dashboard <span style={{ fontSize: 11, opacity: .6 }}>(link coming)</span>
             </a>
             <a href="https://platform.simpl.org/" target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: C.surface, border: "1.5px solid " + C.border, borderRadius: 10, padding: "12px 20px", textDecoration: "none", fontFamily: sans, fontSize: 15, fontWeight: 600, color: C.text }}>
-              {"\u{1F4DD}"} Submit an Assessment
+              {"\u{1F4DD}"} Create a Web Assessment
             </a>
           </div>
         </div>
