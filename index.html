@@ -96,18 +96,18 @@ function Tile({ icon, iconBg, title, summary, open: startOpen, children }) {
 
   return (
     <div style={{ background: C.surface, border: "1px solid " + (open ? C.accent : C.border), borderRadius: 14, transition: "border-color .2s, box-shadow .2s", boxShadow: open ? "0 4px 20px rgba(0,0,0,.05)" : "none" }}>
-      <div style={{ padding: "24px 24px 20px", cursor: "pointer" }} onClick={() => setOpen(!open)}>
-        <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-          <div style={{ width: 50, height: 50, borderRadius: 13, background: iconBg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, flexShrink: 0 }}>{icon}</div>
+      <div style={{ padding: "14px 18px 12px", cursor: "pointer" }} onClick={() => setOpen(!open)}>
+        <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: iconBg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>{icon}</div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontFamily: serif, fontSize: 19, fontWeight: 700, color: C.text, marginBottom: 6, lineHeight: 1.3 }}>{title}</div>
-            <div style={{ fontFamily: sans, fontSize: 15, color: C.text2, lineHeight: 1.65 }}>{summary}</div>
+            <div style={{ fontFamily: serif, fontSize: 17, fontWeight: 700, color: C.text, marginBottom: 3, lineHeight: 1.3 }}>{title}</div>
+            <div style={{ fontFamily: sans, fontSize: 13.5, color: C.text2, lineHeight: 1.55 }}>{summary}</div>
           </div>
           <div style={{ fontFamily: sans, fontSize: 18, color: C.amber, flexShrink: 0, marginTop: 2, transition: "transform .25s", transform: open ? "rotate(90deg)" : "rotate(0)" }}>{"\u25B8"}</div>
         </div>
       </div>
-      {open && <div style={{ padding: "0 24px 24px 90px", borderTop: "1px solid " + C.border }}>
-        <div style={{ paddingTop: 20 }}>{children}</div>
+      {open && <div style={{ padding: "0 18px 18px 70px", borderTop: "1px solid " + C.border }}>
+        <div style={{ paddingTop: 14 }}>{children}</div>
       </div>}
     </div>
   );
@@ -122,15 +122,15 @@ function App() {
     <div style={{ background: C.bg, minHeight: "100vh" }}>
 
       {/* LIVING DOC BANNER */}
-      <div style={{ background: C.amberSub, borderBottom: "1px solid " + C.accent, padding: "10px 32px", textAlign: "center" }}>
-        <p style={{ fontFamily: sans, fontSize: 13.5, color: C.amber, fontWeight: 600, lineHeight: 1.5, maxWidth: 700, margin: "0 auto" }}>This resource is a living document. We continue to update and improve it based on feedback.</p>
+      <div style={{ background: C.amberSub, borderBottom: "1px solid " + C.accent, padding: "6px 32px", textAlign: "center" }}>
+        <p style={{ fontFamily: sans, fontSize: 12.5, color: C.amber, fontWeight: 600, lineHeight: 1.4, maxWidth: 700, margin: "0 auto" }}>This resource is a living document. We continue to update and improve it based on feedback.</p>
       </div>
 
       {/* HEADER */}
       <header style={{ background: C.surface, borderBottom: "1px solid " + C.border }}>
-        <div style={{ maxWidth: 960, margin: "0 auto", padding: "36px 32px 28px", textAlign: "center" }}>
-          <h1 style={{ fontFamily: serif, fontSize: 32, fontWeight: 800, color: C.text, margin: "0 0 8px", lineHeight: 1.2 }}>A Guide to Using Your Assessment Dashboard</h1>
-          <p style={{ fontFamily: sans, fontSize: 15, color: C.text2, margin: 0, lineHeight: 1.5 }}>ABP/SIMPL Assessment Platform</p>
+        <div style={{ maxWidth: 960, margin: "0 auto", padding: "20px 32px 16px", textAlign: "center" }}>
+          <h1 style={{ fontFamily: serif, fontSize: 28, fontWeight: 800, color: C.text, margin: "0 0 4px", lineHeight: 1.2 }}>A Guide to Using Your Assessment Dashboard</h1>
+          <p style={{ fontFamily: sans, fontSize: 14, color: C.text2, margin: 0, lineHeight: 1.5 }}>ABP/SIMPL Assessment Platform</p>
 
           {/* QUICK LINKS */}
           <div style={{ display: "flex", gap: 10, justifyContent: "center", margin: "0 auto 0" }}>
@@ -148,11 +148,11 @@ function App() {
       </header>
 
       {/* ===== CONTEXT + THREE TILES ===== */}
-      <div style={{ maxWidth: 960, margin: "0 auto", padding: "36px 32px 0" }}>
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: "16px 32px 0" }}>
 
         {/* PLATFORM PURPOSE */}
-        <div style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 14, padding: "28px 32px", marginBottom: 32 }}>
-          <p style={{ fontFamily: serif, fontSize: 17, fontWeight: 700, color: C.text, lineHeight: 1.6, textAlign: "center", margin: "0 0 16px" }}>
+        <div style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 14, padding: "18px 28px", marginBottom: 16 }}>
+          <p style={{ fontFamily: serif, fontSize: 16, fontWeight: 700, color: C.text, lineHeight: 1.55, textAlign: "center", margin: "0 0 10px" }}>
             This platform and dashboard are built to ensure that at the time of graduation and certification, you are <em style={{ color: C.amber }}>practice ready</em> — able to provide safe and effective care as a general pediatrician.
           </p>
           <Exp title="What does that mean? Learn more.">
@@ -160,10 +160,10 @@ function App() {
           </Exp>
         </div>
 
-        <div style={{ fontFamily: sans, fontSize: 12, fontWeight: 700, color: C.amber, textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 14 }}>Your dashboard serves three purposes {"\u2014"} tap each to learn more</div>
+        <div style={{ fontFamily: sans, fontSize: 11.5, fontWeight: 700, color: C.amber, textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 10 }}>Your dashboard serves three purposes {"\u2014"} tap each to learn more</div>
 
         {/* THREE TILES */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
 
           {/* TILE 1: VOLUME */}
           <Tile icon={"\u{1F4CA}"} iconBg={C.amberSub}
