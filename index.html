@@ -46,8 +46,9 @@ const CCC_SCALE = [
 
 /* ===== SMALL EXPANDABLE (for inside tiles) ===== */
 
-function Exp({ title, children, open: defaultOpen = false }) {
+function Exp({ title, children, open: defaultOpen = false, forceOpen }) {
   const [open, setOpen] = useState(defaultOpen);
+  useEffect(() => { if (forceOpen) setOpen(true); }, [forceOpen]);
   return (
     <div style={{ marginBottom: 5 }}>
       <button onClick={e => { e.stopPropagation(); setOpen(!open); }} style={{ display: "flex", alignItems: "flex-start", gap: 8, width: "100%", border: "1px solid " + (open ? C.border : "transparent"), background: open ? C.surface : "transparent", borderRadius: 8, padding: "8px 10px", cursor: "pointer", textAlign: "left", transition: "all .2s" }}
@@ -124,6 +125,7 @@ function Tile({ icon, iconBg, title, summary, open: startOpen, children, bg, top
 
 function App() {
   const [selLevel, setSelLevel] = useState(null);
+  const [writtenOpen, setWrittenOpen] = useState(false);
 
   return (
     <div style={{ background: C.bg, minHeight: "100vh" }}>
@@ -144,7 +146,7 @@ function App() {
             <a href="https://drive.google.com/file/d/1w-3irvOs1rwrQn5ShRf7E7p4C75G2vk6/view?usp=sharing" target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", gap: 6, background: C.amberSub, border: "1.5px solid " + C.accent, borderRadius: 10, padding: "8px 12px", textDecoration: "none", fontFamily: sans, fontSize: 13, fontWeight: 600, color: C.amber, textAlign: "center", lineHeight: 1.3 }}>
               {"\u{1F3AC}"} Video Walkthrough
             </a>
-            <button onClick={() => { const el = document.getElementById("written-instructions"); if (el) el.scrollIntoView({ behavior: "smooth" }); }} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: C.amberSub, border: "1.5px solid " + C.accent, borderRadius: 10, padding: "8px 12px", fontFamily: sans, fontSize: 13, fontWeight: 600, color: C.amber, textAlign: "center", lineHeight: 1.3, cursor: "pointer" }}>
+            <button onClick={() => { setWrittenOpen(true); setTimeout(() => { const el = document.getElementById("written-instructions"); if (el) el.scrollIntoView({ behavior: "smooth" }); }, 100); }} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: C.amberSub, border: "1.5px solid " + C.accent, borderRadius: 10, padding: "8px 12px", fontFamily: sans, fontSize: 13, fontWeight: 600, color: C.amber, textAlign: "center", lineHeight: 1.3, cursor: "pointer" }}>
               {"\u{1F4D6}"} Written Instructions
             </button>
             <a href="https://reports.simpl.org/" target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", gap: 6, background: C.surface, border: "1.5px solid " + C.border, borderRadius: 10, padding: "8px 12px", textDecoration: "none", fontFamily: sans, fontSize: 13, fontWeight: 600, color: C.text, textAlign: "center", lineHeight: 1.3 }}>
@@ -179,7 +181,7 @@ function App() {
 
         {/* WRITTEN INSTRUCTIONS */}
         <div id="written-instructions" style={{ background: C.surface, border: "1px solid " + C.border, borderRadius: 12, padding: "0 20px", marginBottom: 6 }}>
-          <Exp title="Written instructions on how to navigate the dashboard">
+          <Exp title="Written instructions on how to navigate the dashboard" forceOpen={writtenOpen}>
             <p style={{ margin: "0 0 10px", color: C.text2 }}>The dashboard consists of four tabs: <strong style={{ color: C.text }}>Performance</strong>, <strong style={{ color: C.text }}>Engagement</strong>, <strong style={{ color: C.text }}>Printable Report</strong>, and <strong style={{ color: C.text }}>Data Export</strong>.</p>
             <p style={{ margin: "0 0 10px", color: C.text2 }}><strong style={{ color: C.text }}>Time frame selector:</strong> In the upper right hand corner, you can change the time frame you wish to view assessment data during.</p>
             <p style={{ margin: "0 0 10px", color: C.text2 }}><strong style={{ color: C.text }}>How data is organized:</strong> All assessments are mapped to either one of the 12 General Pediatrics EPAs or one of the cross-cutting competencies ("Narrative Only"), and also mapped to a setting. You'll see 4 categories throughout: (1) <strong style={{ color: C.text }}>EPA</strong> — the 12 General Pediatrics EPAs as defined by the ABP, with specific activities mapped to each one. (2) <strong style={{ color: C.text }}>Narrative Only</strong> — the cross-cutting competencies (e.g. Recognizing Limits and Seeking Help), to which single free-text forms map. (3) <strong style={{ color: C.text }}>Longitudinal</strong> — Longitudinal Continuity Clinic assessments. (4) <strong style={{ color: C.text }}>Setting</strong> — all assessment data organized by setting (e.g. Emergency Department, Primary Care).</p>
@@ -241,7 +243,7 @@ function App() {
             </Exp>
             <Exp title="What if the volume of feedback feels overwhelming?">
               <p style={{ margin: "0 0 10px" }}>We know that some residents love getting frequent feedback and for some it can feel overwhelming. Both reactions are completely understandable. This is a fundamentally different volume of feedback than what you may have experienced before, and it takes time to develop a relationship with that much data.</p>
-              <p style={{ margin: 0 }}>Prior pilots and early data from this implementation suggest that both faculty and residents prefer this system over time. The first months are the adjustment period. Stick with it, and if it feels like too much, remember that you do not need to process every assessment in isolation. The dashboard exists precisely to help you see the patterns without getting lost in individual data points.</p>
+              <p style={{ margin: 0 }}>Prior pilots and early data from this implementation suggest that both faculty and residents prefer this system over time. There is an adjustment period; stick with it, and if it feels like too much, remember that you do not need to process every assessment in isolation. The dashboard exists precisely to help you see the patterns without getting lost in individual data points.</p>
             </Exp>
           </Tile>
 
